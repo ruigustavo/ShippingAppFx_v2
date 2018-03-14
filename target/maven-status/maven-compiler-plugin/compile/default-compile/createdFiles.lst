@@ -8,3 +8,4 @@ pt\uc\dei\as\PersistenceManager.class
 pt\uc\dei\as\entity\Item.class
 pt\uc\dei\as\entity\Client.class
 pt\uc\dei\as\AlertUtil.class
+pt\uc\dei\as\entity\Shipping_Log.class

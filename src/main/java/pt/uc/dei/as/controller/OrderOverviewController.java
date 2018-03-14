@@ -20,6 +20,8 @@ import pt.uc.dei.as.AlertUtil;
 import pt.uc.dei.as.MainApp;
 import pt.uc.dei.as.entity.*;
 
+import java.util.Calendar;
+
 // TODO: Auto-generated Javadoc
 /**
  * The Class OrderOverviewController.
@@ -152,6 +154,7 @@ public class OrderOverviewController {
 	 */
 	@FXML
 	private void handleToggleShipped() {
+		Shipping_Log newShipping_Log = new Shipping_Log();
 		if (orderTable.getItems() != null && orderTable.getItems().size() > 0
 				&& orderTable.getSelectionModel().getSelectedItem() != null) {
 			Order o = orderTable.getSelectionModel().getSelectedItem();
@@ -163,6 +166,13 @@ public class OrderOverviewController {
 
 			try {
 				MainApp.em.getTransaction().begin();
+				if(o.getOrders_Shipped()==1){
+					newShipping_Log.setIdOrders(o.getIdOrders());
+					newShipping_Log.setWorkers_Name("shippingApp");
+					Calendar today = Calendar.getInstance();
+					newShipping_Log.setShipping_Date(today.getTime());
+					MainApp.em.merge(newShipping_Log);
+				}
 				MainApp.em.merge(o);
 				MainApp.em.getTransaction().commit();
 			} catch (Exception e) {
